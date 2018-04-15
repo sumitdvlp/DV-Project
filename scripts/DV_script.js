@@ -25,3 +25,17 @@ function drawChart() {
         $( "#TestCollapse" ).toggle();
     }
 }
+
+
+function updateAndPopulateList(data) {
+    updateMetaData(data.hits.hits, populateList);
+}
+
+
+function populateList(data) {
+    console.log(data);
+}
+
+function getQuery() {
+    return "books";
+}
