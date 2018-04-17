@@ -2,7 +2,7 @@
  * Created by laveeshrohra on 14/04/18.
  */
 
-function getMetaData(callback, query, from=0) {
+function getMetaDataCategories(callback, query, from=0) {
 
     let queryParam = {
         'match_all': {}
@@ -28,6 +28,67 @@ function getMetaData(callback, query, from=0) {
                     "terms": {
                         "field": "categories.keyword",
                         "size": 500
+                    }
+                }
+            }
+        }
+    };
+
+    metaClient.search(searchParams)
+        .then(callback, console.error);
+}
+
+
+function getAggPriceHistogram(callback, query) {
+
+    let queryParam = {
+        "range": {
+            "price": {
+                "lte": 100
+            }
+        }
+    };
+    if(query){
+        queryParam = {
+            "bool": {
+                "must": [
+                    {
+                        "multi_match": {
+                            "query": query,
+                            "fields": ["brand", "categories", "description", "categories"]
+                        }
+                    },
+                    {
+                        "range": {
+                            "price": {
+                                "lte": 100
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+
+    let searchParams = {
+        index: META_INDEX,
+        type: META_TYPE,
+        size: 0,
+        body: {
+            "query": queryParam,
+            "aggs": {
+                "prices": {
+                    "histogram": {
+                        "field": "price",
+                        "interval": 20
+                    },
+                    "aggs": {
+                        "drill_prices": {
+                            "histogram": {
+                                "field": "price",
+                                "interval": 5
+                            }
+                        }
                     }
                 }
             }
