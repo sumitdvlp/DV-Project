@@ -7,8 +7,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../styles/DV_style.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
+        
         <!--Highcharts-->
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/heatmap.js"></script>
@@ -26,6 +28,7 @@
         <script type="text/javascript" src="../scripts/DV_script.js"></script>
         <script type="text/javascript" src="../scripts/treemap.js"></script>
         <script src="../scripts/column-drill.js"></script>
+
     </head>
 
     <body>
@@ -33,12 +36,10 @@
         <div class="container">
             <div class="panel panel-default" id="treeChart"></div>
             <div class="panel panel-default" id="columnChart"></div>
-
-            <div class="panel panel-info">
-                <button class="btn btn-primary"  data-toggle="collapse" data-target="#TestCollapse">Random</button>
+            <div id="bookPanel">
             </div>
 
-            <div class="panel panel-success collapse" id="TestCollapse" >
+            <div class="panel panel-success" id="TestCollapse" >
                 Authors here
             </div>
         </div>
