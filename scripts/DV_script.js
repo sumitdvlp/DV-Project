@@ -1,40 +1,31 @@
-// Load google charts
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-
-// Draw the chart and set the chart values
-function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Work', 8],
-        ['Eat', 2],
-        ['TV', 4],
-        ['Gym', 2],
-        ['Sleep', 8]
-    ]);
-
-    // Optional; add a title and set the width and height of the chart
-    var options = {'title':'My Average Day', 'width':550, 'height':400};
-
-    // Display the chart inside the <div> element with id="piechart"
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    chart.draw(data, options);
-    google.visualization.events.addListener(chart, 'select', selectHandler);
-
-    function selectHandler(e) {
-        $( "#TestCollapse" ).toggle();
-    }
-}
-
 
 function updateAndPopulateList(data) {
     updateMetaData(data.hits.hits, populateList);
 }
 
-
 function populateList(data) {
+    //For debugging
     console.log(data);
+    $("#bookPanel").empty();
+    data_list = [];
+        // Convert data into json and parse information
+        for(var i in data){
+            json_data = JSON.stringify(data[i]);
+            json_parser = JSON.parse(json_data);
+            data_list.push(json_parser["_source"]["title"]);
+            // Create the UI elements according to clicked heatmap
+            if(json_parser["_source"]["title"]){
+            var txt1 = "<div class='panel panel-default animated bounceInRight'><div class='panel-heading'>"
+                +json_parser["_source"]["title"]
+                +"</div><div class='panel-body'>"
+                +"<img src="+json_parser["_source"]["imUrl"]+" class='img-rounded' height='100' width='100'>"
+                +"</div></div>";// Create text with DOM
+            $("#bookPanel").append(txt1);
+            }
+        }
+    //console.log(data_list);
 }
+
 
 function getQuery() {
     return "books";
