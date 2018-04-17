@@ -15,6 +15,7 @@
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/heatmap.js"></script>
         <script src="https://code.highcharts.com/modules/treemap.js"></script>
+        <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
         <!--Elasticsearch-->
         <script src="../scripts/elasticsearch-js/elasticsearch.jquery.js"></script>
@@ -26,6 +27,7 @@
 
         <script type="text/javascript" src="../scripts/DV_script.js"></script>
         <script type="text/javascript" src="../scripts/treemap.js"></script>
+        <script src="../scripts/column-drill.js"></script>
 
     </head>
 
@@ -33,7 +35,7 @@
 
         <div class="container">
             <div class="panel panel-default" id="treeChart"></div>
-
+            <div class="panel panel-default" id="columnChart"></div>
             <div id="bookPanel">
             </div>
 
@@ -43,8 +45,10 @@
         </div>
 
         <script>
-            getMetaData(loadTreeMap);
-            searchMetaData(updateAndPopulateList);
+//            getMetaDataCategories(loadTreeMap);
+
+
+            executeSearch();
         </script>
 
     </body>
