@@ -100,7 +100,7 @@ function getAggPriceHistogram(callback, query) {
 }
 
 
-function searchMetaData(callback, query, category, from=0) {
+function searchMetaData(callback, query, price, from=0) {
     let queryParam = {
         'match_all': {}
     };
@@ -117,16 +117,17 @@ function searchMetaData(callback, query, category, from=0) {
         "query": queryParam
     };
 
-    if(category){
+    if(price){
         body = {
             "query": {
                 "bool": {
                     "must": [
                         queryParam,
                         {
-                            "term": {
-                                "categories.keyword": {
-                                    "value": category
+                            "range": {
+                                "price": {
+                                    "gte": price[0],
+                                    "lte": price[1]
                                 }
                             }
                         }
