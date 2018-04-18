@@ -1,61 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../styles/DV_style.css">
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        
-        <!--Highcharts-->
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/heatmap.js"></script>
-        <script src="https://code.highcharts.com/modules/treemap.js"></script>
-        <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
-        <!--Elasticsearch-->
-        <script src="../scripts/elasticsearch-js/elasticsearch.jquery.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <!--Headers-->
-        <script src="../scripts/headers.js"></script>
-        <script src="../scripts/metadata.js"></script>
-        <script src="../scripts/reviews.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-        <script type="text/javascript" src="../scripts/DV_script.js"></script>
-        <script type="text/javascript" src="../scripts/treemap.js"></script>
-        <script src="../scripts/column-drill.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../styles/DV_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    </head>
+    <!--Highcharts-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
-    <body>
+    <!--Elasticsearch-->
+    <script src="../scripts/elasticsearch-js/elasticsearch.jquery.js"></script>
 
-        <div class="container">
-            <div class="panel panel-default" id="treeChart"></div>
+    <!--Headers-->
+    <script src="../scripts/headers.js"></script>
+    <script src="../scripts/metadata.js"></script>
+    <script src="../scripts/reviews.js"></script>
+
+
+</head>
+
+<body>
+<nav class="navbar bd-navbar">
+    <div class="d-flex justify-content-center mr-auto p-2">
+        CSE 578 Spring'18
+    </div>
+    <div class="d-flex justify-content-center mr-auto p-2">
+        Amazon Review Data
+    </div>
+    <form class="form-inline p-2">
+        <input id="txtSearchItem" class="form-control mr-sm-2" type="search" placeholder="Enter keyword"
+               aria-label="Search">
+        <button id="btnSearch" class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+<div class="container">
+    <!-- <div class="panel panel-default" id="treeChart"></div> -->
+    <!--columnChart area-->
+    <div class="row">
+        <div class="col-md-12">
             <div class="panel panel-default" id="columnChart"></div>
+        </div>
+    </div>
 
-            <!--States-->
-            <input type="hidden" id="priceState">
 
-            <div class="panel panel-info">
-                <button class="btn btn-primary"  data-toggle="collapse" data-target="#TestCollapse">Random</button>
+    <!--States-->
+    <input type="hidden" id="priceState">
+    <input type="hidden" id="queryState">
 
-            <div id="bookPanel"></div>
+    <!--searchResults list display area-->
 
-            <div class="panel panel-success" id="TestCollapse" >
-                Authors here
+    <div clas="row">
+        <div id="accordion" class="card">
+            <div class="card-header text-white bg-purple " id="searchResultsCardHeader">
+                <h5>
+                    Search Results
+                    <span id="searchResultsCount" class="badge badge-pill badge-success float-right">...</span>
+                </h5>
             </div>
+
+            <div class="card-body" id="searchResultsBody">
+
+                <!--<div class="card">-->
+                <!--<div class="card-header" id="headingOne">-->
+                <!--<h5 class="mb-0">-->
+                <!--<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"-->
+                <!--Collapsible Group Item #1-->
+                <!--</button>-->
+                <!--</h5>-->
+                <!--</div>-->
+
+                <!--<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">-->
+                <!--<div class="card-body">-->
+                <!--Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad-->
+                <!--squid.-->
+                <!--3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt-->
+                <!--laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin-->
+                <!--coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes-->
+                <!--anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings-->
+                <!--occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't-->
+                <!--heard-->
+                <!--of them accusamus labore sustainable VHS.-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="card">-->
+                <!--<div class="card-header" id="headingTwo">-->
+                <!--<h5 class="mb-0">-->
+                <!--<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"-->
+                <!--aria-expanded="false" aria-controls="collapseTwo">-->
+                <!--Collapsible Group Item #2-->
+                <!--</button>-->
+                <!--</h5>-->
+                <!--</div>-->
+                <!--<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">-->
+                <!--<div class="card-body">-->
+                <!--Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad-->
+                <!--squid.-->
+                <!--3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt-->
+                <!--laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin-->
+                <!--coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes-->
+                <!--anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings-->
+                <!--occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't-->
+                <!--heard-->
+                <!--of them accusamus labore sustainable VHS.-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+
+            </div>
+
+
         </div>
 
-        <script>
-//            getMetaDataCategories(loadTreeMap);
+    </div>
+
+</div> <!--end of container-->
+
+<footer class="footer">
+    <div class="container-fluid">
+        <span class="text-muted">Crafted By:- Laveesh Rohra, Sumit Kumar, Pranav Sharan, Abhishek Jain</span>
+    </div>
+</footer>
+<!-- Optional JavaScript -->
+<!-- first Popper.js, then Bootstrap JS -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="../scripts/DV_script.js"></script>
+<script type="text/javascript" src="../scripts/treemap.js"></script>
+<script src="../scripts/column-drill.js"></script>
 
 
-            executeSearch();
-        </script>
+</body>
 
-    </body>
 </html>

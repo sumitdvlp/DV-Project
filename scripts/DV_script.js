@@ -1,7 +1,15 @@
-function updateAndPopulateList(data) {
-    populateList(data);
-    // updateMetaData(data.hits.hits, populateList);
-}
+$('document').ready(function () {
+    executeSearch();
+});
+
+
+$("#btnSearch").click(function () {
+    debugger;
+    let queryItem = $("#txtSearchItem").val();
+    executeSearch(queryItem);
+
+});
+
 
 //Abhishek
 function executeSearch(query) {
@@ -9,33 +17,45 @@ function executeSearch(query) {
     searchMetaData(updateAndPopulateList, query);
 }
 
+function updateAndPopulateList(data) {
+    populateList(data);
+    // updateMetaData(data.hits.hits, populateList);
+}
+
 //Pranav
+//modified by Abhishek -- to render the search results in SearchResults accordion
 function populateList(data) {
     //For debugging
-    console.log(data);
-    $("#bookPanel").empty();
-    data_list = [];
-        // Convert data into json and parse information
-        for(var i in data){
-            json_data = JSON.stringify(data[i]);
-            json_parser = JSON.parse(json_data);
-            data_list.push(json_parser["_source"]["title"]);
-            // Create the UI elements according to clicked heatmap
-            if(json_parser["_source"]["title"]){
-            var txt1 = "<div class='panel panel-default animated bounceInRight'><div class='panel-heading'>"
-                +json_parser["_source"]["title"]
-                +"</div><div class='panel-body'>"
-                +"<img src="+json_parser["_source"]["imUrl"]+" class='img-rounded' height='100' width='100'>"
-                +"</div></div>";// Create text with DOM
-            $("#bookPanel").append(txt1);
-            }
-        }
-    //console.log(data_list);
+    //debugger;
+
+    let resultsList = data.hits.hits;
+
+    $("#searchResultsCount").text(resultsList.length);
+    $("#searchResultsBody").empty(); // clear all current cards
+    for(result in resultsList)
+    {
+        let booktitle = resultsList[result]._source.title; //string
+        let description = resultsList[result]._source.description; //string
+        let imgUrl = resultsList[result]._source.imUrl; //string
+        let price = resultsList[result]._source.price; //int
+        let review_neg = resultsList[result]._source.review_neg; //int 
+        let review_neu = resultsList[result]._source.review_neu; //int 
+        let review_pos = resultsList[result]._source.review_pos; //int 
+        
+        let bool_aria_expanded = (result > 0)?"false":"true";
+        let class_body_show = (result>0)?"collapse":"collapse show";
+        let htmlCardHeader = "<div class='card handpointer'> <div class='card-header text-white bg-dark' id='"+result+"'><h5 class='mb-0' data-toggle='collapse' data-target='#collapse"+result+"' aria-expanded='"+bool_aria_expanded+"' aria-controls='collapse"+result+"' >"+booktitle+" </h5></div>";
+        let htmlCardBody = "<div id='collapse"+result+"' class='"+class_body_show+"' aria-labelledby='heading"+result+"' data-parent='#accordion'><div class='card-body'>"+description+"</div></div></div>";
+                                   
+        $("#searchResultsBody").append(htmlCardHeader+htmlCardBody);
+    }
+
 }
 
 //Abhishek
 function getQuery() {
-    return "books" || null;
+    let query = $('#queryState').val() || null;
+    return query ? query.split(",") : "books";
 }
 
 //Laveesh
