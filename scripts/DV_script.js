@@ -45,5 +45,6 @@ function getQuery() {
 
 //Laveesh
 function getPrice() {
-    return [10, 20] || null;
+    let price = $('#priceState').val() || null;
+    return price ? price.split(",") : null;
 }
