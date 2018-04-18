@@ -98,5 +98,11 @@ function createColumnChart(data) {
 
 
 function onClick(event) {
-    console.log(event.point.name.split(" to "));
+    let price = event.point.name.split(" to ");
+    setPriceState(price);
+    searchMetaData(updateAndPopulateList, getQuery(), price);
+}
+
+function setPriceState(price) {
+    $('#priceState').val(price);
 }
