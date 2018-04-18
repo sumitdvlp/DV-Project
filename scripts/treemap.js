@@ -6,11 +6,11 @@ function loadTreeMap(data) {
 
     let finalData = [];
 
-    data.aggregations.categories.buckets.forEach((row,i) => {
+    data.aggregations.categories.buckets.forEach((row, i) => {
         finalData.push({
             name: row.key,
             value: row.doc_count,
-            colorValue: i+1
+            colorValue: i + 1
         });
     });
 
