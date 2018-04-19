@@ -1,8 +1,8 @@
 /**
- * Created by laveeshrohra on 14/04/18.
+ * Created by laveeshrohra on 18/04/18.
  */
 
-function getReviewDataByAsin(asin, callback, from=0) {
+function getFullMetaDataByAsins(asins, callback, from=0) {
 
     let searchParams = {
         index: REVIEW_INDEX,
