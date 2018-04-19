@@ -16,6 +16,8 @@
         <script src="https://code.highcharts.com/modules/heatmap.js"></script>
         <script src="https://code.highcharts.com/modules/treemap.js"></script>
         <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
         <!--Elasticsearch-->
         <script src="../scripts/elasticsearch-js/elasticsearch.jquery.js"></script>
@@ -39,14 +41,15 @@
 
             <!--States-->
             <input type="hidden" id="priceState">
+            <div class="container" >
+                <button type="btn btn-primary" onclick="getPrev()">Previous</button>
+                <button type="btn btn-primary" onclick="getNext()">Next</button>
+            </div>
+            <div id="bookPanel">
 
-            <div class="panel panel-info">
-                <button class="btn btn-primary"  data-toggle="collapse" data-target="#TestCollapse">Random</button>
+            </div>
 
-            <div id="bookPanel"></div>
-
-            <div class="panel panel-success" id="TestCollapse" >
-                Authors here
+            <div id="TestCollapse" >
             </div>
         </div>
 
