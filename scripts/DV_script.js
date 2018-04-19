@@ -14,7 +14,7 @@ function executeSearch(query) {
 //Pranav
 function populateList(data) {
     //For debugging
-    //console.log(data);
+    console.log(data);
     $("#bookPanel").empty();
     data_list = [];
     json_data = JSON.stringify(data);
@@ -33,17 +33,19 @@ function populateList(data) {
                 "<div class='panel panel-default animated bounceInRight'><div class='panel-heading'>"
                 +json_parser["_source"]["title"]
                 +"</div><div class='panel-body'>"
-                +"<div class='row'><div class='col-sm-3'>"
+                +"<div class='row'><div class='col-sm-2'>"
                 +"<img src="+json_parser["_source"]["imUrl"]+" class='img-rounded' height='100' width='100'>"
-                +"</div><div class='col-sm-9'>"
+                +"</div><div class='col-sm-5'>"
                 +"<p class='text-success'>Positive : "+json_parser["_source"]["review_pos"]+"</p>\n" +
                 " <p class='text-info'>Neutral : "+json_parser["_source"]["review_neu"]+"</p>\n" +
                 " <p class='text-warning'>Negative : "+json_parser["_source"]["review_neg"]+"</p>"
                 +"</div>"
+                +"<div class='col-sm-5' style='max-height: 100px'>"
+                +"<p class='text=primary'>"+json_parser["_source"]["description"]+"</p>"
+                +"</div>"
                 +"</div>"
                 +"</div></div>";// Create text with DOM
             $("#bookPanel").append(txt1);
-            console.log('Test'+i);
             }
         }
 
