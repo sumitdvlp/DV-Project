@@ -1,4 +1,9 @@
 var pageIndex = 0;
+function searchData() {
+    debugger;
+    let queryItem = $("#txtSearchItem").val();
+    executeSearch(queryItem);
+}
 
 function updateAndPopulateList(data) {
     populateList(data);
@@ -7,6 +12,7 @@ function updateAndPopulateList(data) {
 
 //Abhishek
 function executeSearch(query) {
+    debugger;
     getAggPriceHistogram(createColumnChart, query);
     searchMetaData(updateAndPopulateList, query);
 }
@@ -36,9 +42,7 @@ function populateList(data) {
                 +"<div class='row'><div class='col-sm-2'>"
                 +"<img src="+json_parser["_source"]["imUrl"]+" class='img-rounded' height='100' width='100'>"
                 +"</div><div class='col-sm-5'>"
-                +"<p class='text-success'>Positive : "+json_parser["_source"]["review_pos"]+"</p>\n" +
-                " <p class='text-info'>Neutral : "+json_parser["_source"]["review_neu"]+"</p>\n" +
-                " <p class='text-warning'>Negative : "+json_parser["_source"]["review_neg"]+"</p>"
+                +"<div id="+json_parser["_source"]["asin"]+"></div>"
                 +"</div>"
                 +"<div class='col-sm-5' style='max-height: 100px'>"
                 +"<p class='text=primary'>"+json_parser["_source"]["description"]+"</p>"
@@ -46,6 +50,14 @@ function populateList(data) {
                 +"</div>"
                 +"</div></div>";// Create text with DOM
             $("#bookPanel").append(txt1);
+
+            var temp = [];
+            temp.push(json_parser["_source"]["review_pos"]);
+            temp.push(json_parser["_source"]["review_neu"]);
+            temp.push(json_parser["_source"]["review_neg"]);
+            console.log(temp);
+            //Add graph to the books panel
+            loadColumnChart(json_parser["_source"]["asin"], temp);
             }
         }
 

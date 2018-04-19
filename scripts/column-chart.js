@@ -3,10 +3,10 @@
  */
 
 //Data format = [positive, neutral, negative]
-function loadColumnChart(container, data=[10,20,10]){
+function loadColumnChart(container, data = [10, 20, 10]) {
 
-    let sum = data.reduce((a,b) => a+b, 0);
-    data = data.map(d => d/sum*100);
+    let sum = data.reduce((a, b) => a + b, 0);
+    data = data.map(d => d / sum * 100);
 
     Highcharts.chart(container, {
         chart: {
@@ -73,5 +73,12 @@ function loadColumnChart(container, data=[10,20,10]){
                 data: [data[2]]
             }
         ]
+        ,
+        colors: [
+            '#89A54E',
+            '#FFFF66',
+            '#FF4500'
+        ]
+
     });
 }
