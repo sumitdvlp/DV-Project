@@ -16,6 +16,8 @@
         <script src="https://code.highcharts.com/modules/heatmap.js"></script>
         <script src="https://code.highcharts.com/modules/treemap.js"></script>
         <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
         <!--Elasticsearch-->
         <script src="../scripts/elasticsearch-js/elasticsearch.jquery.js"></script>
@@ -28,32 +30,58 @@
         <script type="text/javascript" src="../scripts/DV_script.js"></script>
         <script type="text/javascript" src="../scripts/treemap.js"></script>
         <script src="../scripts/column-drill.js"></script>
+        <script src="../scripts/column-chart.js"></script>
 
     </head>
 
     <body>
 
         <div class="container">
-            <div class="panel panel-default" id="treeChart"></div>
+            <!--top search bar-->
+            <div class="panel panel-default">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2>CSE 578 Spring'18</h2>
+                    </div>
+                    <div class="col-md-3">
+                        <h3>Amazon Review Data</h3>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h3><input id="txtSearchItem" class="form-control mr-sm-2" type="search" placeholder="Enter keyword"
+                                   aria-label="Search"></h3>
+                    </div>
+                    <div clas="col-md-2">
+                        <h3>
+                        <button id="btnSearch" class="btn btn-success my-2 my-sm-0" onclick="searchData(this)" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Search</button>
+                        </h3>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="panel panel-default" id="columnChart"></div>
 
             <!--States-->
             <input type="hidden" id="priceState">
-
-            <div class="panel panel-info">
-                <button class="btn btn-primary"  data-toggle="collapse" data-target="#TestCollapse">Random</button>
-
+            <div class="panel background-none">
+                <button type="button" class="btn btn-primary" onclick="getPrev()">
+                    <span class="glyphicon glyphicon-backward"></span> Prev
+                </button>
+                <div class="span pull-right">
+                <button type="button" class="btn btn-primary" onclick="getNext()">
+                    Next <span class="glyphicon glyphicon-forward"></span> </button>
+                </div>
+            </div>
             <div id="bookPanel"></div>
 
-            <div class="panel panel-success" id="TestCollapse" >
-                Authors here
+            <div id="TestCollapse" >
             </div>
         </div>
 
         <script>
 //            getMetaDataCategories(loadTreeMap);
-
-
             executeSearch();
         </script>
 
