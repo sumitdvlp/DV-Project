@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="../styles/DV_style.css">
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         
         <!--Highcharts-->
@@ -74,11 +75,37 @@
                     Next <span class="glyphicon glyphicon-forward"></span> </button>
                 </div>
             </div>
-            <div id="bookPanel"></div>
 
-            <div id="TestCollapse" >
+            <div id="bookPanel"></div>
+            <div id="TestCollapse">
+
+            </div>
+
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="BookTitle">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Some text in the modal.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
             </div>
         </div>
+
+        <img src="http://ecx.images-amazon.com/images/I/51oQ7vFT-ZL.jpg" class='img-rounded animated bounceInRight bookpopover' data-content='<div id="12">xgdfgdf</div>' data-placement='top' title='vbnvbn' height='100' width='100'>
+
 
         <script>
 //            getMetaDataCategories(loadTreeMap);
