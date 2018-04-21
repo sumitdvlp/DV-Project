@@ -7,6 +7,7 @@ function updateAndPopulateList(data) {
 function executeSearch(query) {
     getAggPriceHistogram(createColumnChart, query);
     searchMetaData(updateAndPopulateList, query);
+    clearPrice();
 }
 
 //Pranav
@@ -42,4 +43,17 @@ function getQuery() {
 function getPrice() {
     let price = $('#priceState').val() || null;
     return price ? price.split(",") : null;
+}
+
+function clearPrice() {
+    $('#priceState').val("");
+}
+
+function populateReviewTab(data) {
+    if(data.hits.total === 0){
+        //Do not show review tab in
+        return;
+    }
+    //Populate Review tab
+    console.log(data);
 }

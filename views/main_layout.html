@@ -10,6 +10,10 @@
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <!--D3 V4-->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"></script>
         
         <!--Highcharts-->
         <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -24,10 +28,35 @@
         <script src="../scripts/headers.js"></script>
         <script src="../scripts/metadata.js"></script>
         <script src="../scripts/reviews.js"></script>
+        <script src="../scripts/metafull.js"></script>
 
         <script type="text/javascript" src="../scripts/DV_script.js"></script>
         <script type="text/javascript" src="../scripts/treemap.js"></script>
         <script src="../scripts/column-drill.js"></script>
+        <script src="../scripts/network-graph.js"></script>
+        <script src="../scripts/pie-chart.js"></script>
+
+        <style>
+            .links line {
+                stroke-opacity: 0.8;
+            }
+
+            .nodes circle {
+                stroke: #fff;
+                stroke-width: 1.5px;
+            }
+
+            div.tooltip {
+                position: absolute;
+                text-align: center;
+                padding: 5px;
+                font: 12px sans-serif;
+                background: lightsteelblue;
+                border: 0px;
+                border-radius: 8px;
+                pointer-events: none;
+            }
+        </style>
 
     </head>
 
@@ -36,12 +65,16 @@
         <div class="container">
             <div class="panel panel-default" id="treeChart"></div>
             <div class="panel panel-default" id="columnChart"></div>
+            <div class="panel panel-default" id="pieChart"></div>
 
             <!--States-->
             <input type="hidden" id="priceState">
 
             <div class="panel panel-info">
                 <button class="btn btn-primary"  data-toggle="collapse" data-target="#TestCollapse">Random</button>
+            </div>
+
+            <div id='networkGraph' style="width: 960px; height: 600px"></div>
 
             <div id="bookPanel"></div>
 
@@ -52,9 +85,54 @@
 
         <script>
 //            getMetaDataCategories(loadTreeMap);
+//            createNetworkGraph('#networkGraph');
 
-
-            executeSearch();
+            let selected = {
+                "asin": "0240815203",
+                "categories": [
+                    [
+                        "Books"
+                    ]
+                ],
+                "description": "yo",
+                "title": "Sell Your Own Damn Movie!",
+                    "price": 15.8,
+                    "salesRank": {
+                    "Books": 638712
+                },
+                "imUrl": "http://ecx.images-amazon.com/images/I/61-ckY%2BiDcL.jpg",
+                "related": {
+                    "also_bought": [
+                        "0240810457",
+                        "0312288646",
+                        "024081052X",
+                        "B004VQRC8C",
+                        "B0009E27SK",
+                        "1456399365",
+                        "0306808749",
+                        "B001SGEUGU",
+                        "0307587959",
+                        "0425163571"
+                    ],
+                        "bought_together": [
+                        "0312288646",
+                        "024081052X"
+                    ],
+                        "buy_after_viewing": [
+                        "0312288646",
+                        "024081052X",
+                        "B004VQRC8C",
+                        "0240810457"
+                    ]
+                },
+                "review_pos": 21,
+                "review_neg": 0,
+                "review_neu": 3
+                };
+            getFullMetaDataByAsins(selected, '#networkGraph');
+            createPieChart('pieChart', [0.62, 0.12, 0.26]);
+            getReviewDataByAsin("XXX", populateReviewTab);
+//            executeSearch();
         </script>
 
     </body>
