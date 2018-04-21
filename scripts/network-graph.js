@@ -49,7 +49,7 @@ function createNetworkGraph(container='#networkGraph', data, legend) {
         .selectAll("line")
         .data(data.links)
         .enter().append("line")
-        .attr("stroke-width", 15)
+        .attr("stroke-width", 7)
         .attr("stroke", d => color(d.group));
 
     let node = svg.append("g")

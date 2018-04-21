@@ -54,7 +54,10 @@ function createColumnChart(data) {
             text: 'Click the columns to view sub distribution'
         },
         xAxis: {
-            type: 'category'
+            type: 'category',
+            title: {
+                text: 'Price Distribution (in Dollars $)'
+            }
         },
         yAxis: {
             title: {
