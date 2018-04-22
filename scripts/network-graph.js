@@ -49,7 +49,7 @@ function createNetworkGraph(container='#networkGraph', data, legend) {
         .selectAll("line")
         .data(data.links)
         .enter().append("line")
-        .attr("stroke-width", 15)
+        .attr("stroke-width", 7)
         .attr("stroke", d => color(d.group));
 
     let node = svg.append("g")
@@ -81,7 +81,7 @@ function createNetworkGraph(container='#networkGraph', data, legend) {
                 .duration(500)
                 .style("opacity", 0);
         })
-        .on("click", d => getFullMetaDataByAsins(d.source, '#networkGraph'));
+        .on("click", d => populateModal(d.source));
 
 
     // node.append("title")

@@ -55,7 +55,7 @@ function populateList(data) {
             json_data = JSON.stringify(parsed_data[i]);
             json_parser = JSON.parse(json_data);
             delaycounter += 0.1;
-            temp = temp + "<div class='col-sm-2'><img src="+data_list[i]+" data-toggle='modal' data-target='#myModal' style='animation-delay: "+delaycounter+"s;' " +
+            temp = temp + "<div class='col-sm-2'><img src="+data_list[i]+" data-json="+json_parser["_source"]["asin"]+" data-toggle='modal' data-target='#myModal' style='animation-delay: "+delaycounter+"s;' " +
             "class='img-rounded animated bounceInRight bookpopover ModalBook' data-title='"+json_parser["_source"]["title"]+"'  data-placement='top' title='"+json_parser["_source"]["title"]+"' height='100' width='100'></div>";
             id_array.push(json_parser["_source"]["asin"]);
         }
@@ -80,39 +80,41 @@ function populateList(data) {
             catch(err){console.log(err);}
         }
 
-    $(".ModalBook").click(function(){
+    $(".ModalBook").click(getModalData);
 
-        var test = $(this).attr("data-json");
-        let selected;
-        var temp2 = [];
-        // Get the current JSON source
-        for(var i in currentJSON)
+}
+
+function getModalData(){
+
+    var test = $(this).attr("data-json");
+    let selected;
+    // Get the current JSON source
+    for(var i in currentJSON)
+    {
+        json_data = JSON.stringify(currentJSON[i]);
+        json_parser = JSON.parse(json_data);
+        if(String(json_parser["_source"]["asin"]) === test)
         {
-            json_data = JSON.stringify(currentJSON[i]);
-            json_parser = JSON.parse(json_data);
-            if(String(json_parser["_source"]["asin"]) == test)
-            {
-                selected = json_parser["_source"];
-                temp2.push(json_parser["_source"]["review_pos"]);
-                temp2.push(json_parser["_source"]["review_neu"]);
-                temp2.push(json_parser["_source"]["review_neg"]);
-                getReviewDataByAsin(json_parser["_source"]["asin"], populateReviewTab);
-            }
+            selected = json_parser["_source"];
+            break;
         }
+    }
 
-        try{
+    populateModal(selected);
+}
+
+function populateModal(selected) {
+    try{
         getFullMetaDataByAsins(selected, '#networkGraph');
-        createPieChart('pieChart', temp2);
-        }
-        catch(err){console.log(err);}
-        $(".modal-header #BookTitle").text($(this).attr("data-title"));
-    });
-
+        getReviewDataByAsin(selected["asin"], populateReviewTab);
+    }
+    catch(err){console.log(err);}
+    $(".modal-header #BookTitle").text(selected['title']);
 }
 
 //Abhishek
 function getQuery() {
-    return "books" || null;
+    return $("#txtSearchItem").val() || null;
 }
 
 //Laveesh
@@ -142,8 +144,23 @@ function populateReviewTab(data) {
     $(".modal-body #reviewLayout").empty();
     if(data.hits.total === 0){
         //Do not show review tab in
+        $('#pieChart').hide();
+
+        //Add description
+
         return;
     }
+
+    let buckets = data.aggregations.polarities.buckets;
+    let sum = 0;
+    let aggs = {};
+
+    buckets.forEach(row => {
+        sum += row['doc_count'];
+        aggs[row['key']] = row['doc_count'];
+    });
+    createPieChart('pieChart', [aggs[1]/sum*100, aggs[0]/sum*100, aggs[-1]/sum*100]);
+
     //Populate Review tab
     json_data = JSON.stringify(data);
     json_parser = JSON.parse(json_data);
@@ -154,9 +171,9 @@ function populateReviewTab(data) {
         json_data = JSON.stringify(parsed_data[i]);
         json_parser = JSON.parse(json_data);
 
-        temp = temp + "<div class='media'><div class='media-body' style='background-color: lightgrey' >"
+        temp = temp + "<div class='media animated bouceInRight'><div class='media-body' style='background-color: lightgrey' >"
         +"<h3 class='media-heading'>"+json_parser["_source"]["summary"]+"</h3>"
-        +json_parser["_source"]["reviewerName"]
+        +(json_parser["_source"]["reviewerName"] || "Amazon Customer")
         +"</div></div><hr>";
     }
     $(".modal-body #reviewLayout").append(temp);

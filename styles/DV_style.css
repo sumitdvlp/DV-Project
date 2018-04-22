@@ -10,6 +10,10 @@ body{
     background-color: dimgrey;
 }
 
+.ModalBook {
+    cursor: pointer;
+}
+
 /* Referenced from https://www.bootply.com/jme11/7h2JKXv40U */
 .shelf {
     border-bottom: 30px solid #a5a5a5;

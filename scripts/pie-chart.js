@@ -5,6 +5,8 @@
 function createPieChart(container, data) {
     //data = [0.62, 0.23, 0.2] [Pos, Neu, Neg]
 
+    $('#'+container).show();
+
     Highcharts.chart(container, {
         chart: {
             plotBackgroundColor: null,
@@ -13,7 +15,7 @@ function createPieChart(container, data) {
             type: 'pie'
         },
         title: {
-            text: 'Sentiment Analysis of Review'
+            text: 'Distribution of sentiments for the Book'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

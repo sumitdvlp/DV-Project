@@ -15,6 +15,13 @@ function getReviewDataByAsin(asin, callback, from=0) {
                         "value": asin
                     }
                 }
+            },
+            "aggs": {
+                "polarities": {
+                    "terms": {
+                        "field": "polarity"
+                    }
+                }
             }
         }
     };
