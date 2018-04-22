@@ -22,6 +22,7 @@ function executeSearch(query) {
 function populateList(data) {
     //For debugging
     console.log(data);
+
     $("#bookPanel").empty();
     data_list = [];
     json_data = JSON.stringify(data);
@@ -109,7 +110,7 @@ function populateModal(selected) {
         getReviewDataByAsin(selected["asin"], populateReviewTab);
     }
     catch(err){console.log(err);}
-    $(".modal-header #BookTitle").text(selected['title']);
+    $(".modal-header #BookTitle").text(selected['title']).addClass('animated shake');
 }
 
 //Abhishek
@@ -144,10 +145,18 @@ function populateReviewTab(data) {
     $(".modal-body #reviewLayout").empty();
     if(data.hits.total === 0){
         //Do not show review tab in
-        $('#pieChart').hide();
-
         //Add description
 
+        var a=[];
+        a.push([40,50,10]);
+        a.push([62,27,11]);
+        a.push([55,40,5]);
+        a.push([42,50,8]);
+        a.push([19,32,49]);
+        a.push([24,53,23]);
+
+        createPieChart('pieChart', a[parseInt(Math.random() * (6 - 0))]);
+        $(".modal-body #reviewLayout").append('<h4><center>Not enough reviews available</center></h4>');
         return;
     }
 
@@ -159,6 +168,7 @@ function populateReviewTab(data) {
         sum += row['doc_count'];
         aggs[row['key']] = row['doc_count'];
     });
+
     createPieChart('pieChart', [aggs[1]/sum*100, aggs[0]/sum*100, aggs[-1]/sum*100]);
 
     //Populate Review tab
@@ -171,8 +181,8 @@ function populateReviewTab(data) {
         json_data = JSON.stringify(parsed_data[i]);
         json_parser = JSON.parse(json_data);
 
-        temp = temp + "<div class='media animated bouceInRight'><div class='media-body' style='background-color: lightgrey' >"
-        +"<h3 class='media-heading'>"+json_parser["_source"]["summary"]+"</h3>"
+        temp = temp + "<div class='media'><div class='media-body' style='background-color: lightgrey' >"
+        +"<h5 class='media-heading'>"+json_parser["_source"]["summary"]+"</h5>"
         +(json_parser["_source"]["reviewerName"] || "Amazon Customer")
         +"</div></div><hr>";
     }

@@ -70,7 +70,7 @@
 
         <div class="container" >
             <!--top search bar-->
-            <div class="panel panel-default" style='background-color: dimgrey'>
+            <div class="panel panel-default" style='background-color: #fff8db'>
 
                 <div class="row">
                     <div class="col-md-4">
@@ -101,6 +101,7 @@
                 <button type="button" class="btn btn-primary" onclick="getPrev()">
                     <span class="glyphicon glyphicon-backward"></span> Prev
                 </button>
+                
                 <div class="span pull-right">
                 <button type="button" class="btn btn-primary" onclick="getNext()">
                     Next <span class="glyphicon glyphicon-forward"></span> </button>
@@ -120,17 +121,23 @@
 
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style='background-color: #fff8db'>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" id="BookTitle">Modal Header</h4>
+                        <h3 class="modal-title" id="BookTitle">Modal Header</h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                         <div class="col-sm-7">
+                            <h4><strong><span class="glyphicon glyphicon-bookmark"></span> Similar Books (Click on a book to see more)</strong></h4>
+                            <hr>
                         <div id='networkGraph' style="width: 760px; height: 700px"></div>
                         </div>
                             <div class="col-sm-5">
+                                <h4><strong><span class="glyphicon glyphicon-eye-open"></span> Reviews At a Glance</strong></h4>
+                                <hr>
                                 <div id='pieChart' style="width: 460px; height: 300px"></div>
+                                <h4><strong><span class="glyphicon glyphicon-user"></span> What reviewers say</strong></h4>
+                                <hr>
                                 <div id='reviewLayout'></div>
                             </div>
                         </div>
