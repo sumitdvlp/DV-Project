@@ -15,6 +15,7 @@
         <!--D3 V4-->
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"></script>
+        <script src="../scripts/d3.layout.cloud.js"></script>
         
         <!--Highcharts-->
         <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -32,6 +33,7 @@
         <script src="../scripts/metadata.js"></script>
         <script src="../scripts/reviews.js"></script>
         <script src="../scripts/metafull.js"></script>
+        <script src="../scripts/StopWords.js"></script>
 
         <script type="text/javascript" src="../scripts/DV_script.js"></script>
         <script type="text/javascript" src="../scripts/treemap.js"></script>
@@ -42,27 +44,7 @@
         <script src="../scripts/network-graph.js"></script>
         <script src="../scripts/pie-chart.js"></script>
 
-        <style>
-            .links line {
-                stroke-opacity: 0.8;
-            }
-
-            .nodes circle {
-                stroke: #fff;
-                stroke-width: 1.5px;
-            }
-
-            div.tooltip {
-                position: absolute;
-                text-align: center;
-                padding: 5px;
-                font: 12px sans-serif;
-                background: lightsteelblue;
-                border: 0px;
-                border-radius: 8px;
-                pointer-events: none;
-            }
-        </style>
+        <script src="../scripts/wordCloud.js"></script>
 
     </head>
 
@@ -131,7 +113,7 @@
                         </div>
                             <div class="col-sm-5">
                                 <div id='pieChart' style="width: 460px; height: 300px"></div>
-                                <div id='reviewLayout'></div>
+                                <div id='wordCloud' style="width: 460px; height: 300px"></div>
                             </div>
                         </div>
                     </div>

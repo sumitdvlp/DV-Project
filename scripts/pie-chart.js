@@ -3,7 +3,7 @@
  */
 
 function createPieChart(container, data) {
-    //data = [0.62, 0.23, 0.2] [Pos, Neu, Neg]
+    //data = [Pos, Neu, Neg]
 
     $('#'+container).show();
 
