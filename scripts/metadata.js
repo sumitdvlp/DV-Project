@@ -11,7 +11,7 @@ function getMetaDataCategories(callback, query, from=0) {
         queryParam = {
             "multi_match": {
                 "query": query,
-                "fields": ["brand", "categories", "description", "categories"]
+                "fields": ["brand", "categories", "description", "title"]
             }
         }
     }
@@ -55,7 +55,7 @@ function getAggPriceHistogram(callback, query) {
                     {
                         "multi_match": {
                             "query": query,
-                            "fields": ["brand", "categories", "description", "categories"]
+                            "fields": ["brand", "categories", "description", "title"]
                         }
                     },
                     {
@@ -108,7 +108,7 @@ function searchMetaData(callback, query, price, from=0) {
         queryParam = {
             "multi_match": {
                 "query": query,
-                "fields": ["brand", "categories", "description", "categories"]
+                "fields": ["brand", "categories", "description", "title"]
             }
         }
     }

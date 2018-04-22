@@ -9,7 +9,12 @@
         <link rel="stylesheet" type="text/css" href="../styles/DV_style.css">
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <!--D3 V4-->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"></script>
         
         <!--Highcharts-->
         <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -26,33 +31,60 @@
         <script src="../scripts/headers.js"></script>
         <script src="../scripts/metadata.js"></script>
         <script src="../scripts/reviews.js"></script>
+        <script src="../scripts/metafull.js"></script>
 
         <script type="text/javascript" src="../scripts/DV_script.js"></script>
         <script type="text/javascript" src="../scripts/treemap.js"></script>
         <script src="../scripts/column-drill.js"></script>
+
         <script src="../scripts/column-chart.js"></script>
+
+        <script src="../scripts/network-graph.js"></script>
+        <script src="../scripts/pie-chart.js"></script>
+
+        <style>
+            .links line {
+                stroke-opacity: 0.8;
+            }
+
+            .nodes circle {
+                stroke: #fff;
+                stroke-width: 1.5px;
+            }
+
+            div.tooltip {
+                position: absolute;
+                text-align: center;
+                padding: 5px;
+                font: 12px sans-serif;
+                background: lightsteelblue;
+                border: 0px;
+                border-radius: 8px;
+                pointer-events: none;
+            }
+        </style>
 
     </head>
 
     <body>
 
-        <div class="container">
+        <div class="container" >
             <!--top search bar-->
-            <div class="panel panel-default">
+            <div class="panel panel-default" style='background-color: dimgrey'>
 
                 <div class="row">
                     <div class="col-md-4">
-                        <h2>CSE 578 Spring'18</h2>
+
                     </div>
                     <div class="col-md-3">
-                        <h3>Amazon Review Data</h3>
+                        <h3 style="color:darkblue;"><span class="glyphicon glyphicon-sunglasses" style="color:darkblue;"></span> Review Scope</h3>
                     </div>
 
                     <div class="col-md-3">
                         <h3><input id="txtSearchItem" class="form-control mr-sm-2" type="search" placeholder="Enter keyword"
                                    aria-label="Search"></h3>
                     </div>
-                    <div clas="col-md-2">
+                    <div class="col-md-2">
                         <h3>
                         <button id="btnSearch" class="btn btn-success my-2 my-sm-0" onclick="searchData(this)" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Search</button>
                         </h3>
@@ -74,14 +106,44 @@
                     Next <span class="glyphicon glyphicon-forward"></span> </button>
                 </div>
             </div>
-            <div id="bookPanel"></div>
 
-            <div id="TestCollapse" >
+            <div id="bookPanel"></div>
+            <div id="TestCollapse">
+
+            </div>
+
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog" >
+            <div class="modal-dialog" style="width:100%">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="BookTitle">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                        <div class="col-sm-7">
+                        <div id='networkGraph' style="width: 760px; height: 700px"></div>
+                        </div>
+                            <div class="col-sm-5">
+                                <div id='pieChart' style="width: 460px; height: 300px"></div>
+                                <div id='reviewLayout'></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
             </div>
         </div>
 
         <script>
-//            getMetaDataCategories(loadTreeMap);
             executeSearch();
         </script>
 

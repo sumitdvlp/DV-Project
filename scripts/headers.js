@@ -17,3 +17,5 @@ const META_TYPE = "metadata";
 
 const REVIEW_INDEX = "reviews";
 const REVIEW_TYPE = "reviews";
+
+const META_FULL = "metafull";
