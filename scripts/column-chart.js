@@ -62,7 +62,7 @@ function loadColumnChart(container, data = [10, 20, 10]) {
         series: [
             {
                 name: 'Positive',
-                data: [data[0]]
+                data: [data[0]],
             },
             {
                 name: 'Neutral',

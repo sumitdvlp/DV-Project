@@ -2,30 +2,17 @@
  * Created by laveeshrohra on 14/04/18.
  */
 
-function getReviewData(query, callback) {
-    reviewClient.search({'q': query})
-        .then(callback, console.error);
-}
-
-
-function getReviewDataByAsin(asin, callback) {
+function getReviewDataByAsin(asin, callback, from=0) {
 
     let searchParams = {
         index: REVIEW_INDEX,
         type: REVIEW_TYPE,
-        size: 0,
+        from: from,
         body: {
             "query": {
                 "term": {
                     "asin.keyword": {
                         "value": asin
-                    }
-                }
-            },
-            "aggs": {
-                "polarities": {
-                    "terms": {
-                        "field": "polarity"
                     }
                 }
             }
