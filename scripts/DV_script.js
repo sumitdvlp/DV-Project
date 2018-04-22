@@ -142,7 +142,9 @@ function clearPrice() {
 }
 
 function populateReviewTab(data) {
-    $(".modal-body #reviewLayout").empty();
+    $("#wordCloud").empty();
+    $("#reviewLayout").empty();
+
     if(data.hits.total === 0){
         //Do not show review tab in
         //Add description
@@ -156,7 +158,7 @@ function populateReviewTab(data) {
         a.push([24,53,23]);
 
         createPieChart('pieChart', a[parseInt(Math.random() * (6 - 0))]);
-        $(".modal-body #reviewLayout").append('<h4><center>Not enough reviews available</center></h4>');
+        $(".modal-body #reviewLayout").append("<div class='alert alert-warning'>Sorry, Enough reviews not available to build wordcloud for this book</div>");
         return;
     }
 
@@ -171,20 +173,10 @@ function populateReviewTab(data) {
 
     createPieChart('pieChart', [aggs[1]/sum*100, aggs[0]/sum*100, aggs[-1]/sum*100]);
 
-    //Populate Review tab
-    json_data = JSON.stringify(data);
-    json_parser = JSON.parse(json_data);
-    parsed_data = json_parser["hits"]["hits"];
-    var temp='';
-    for(var i=0; i<5; i++)
-    {
-        json_data = JSON.stringify(parsed_data[i]);
-        json_parser = JSON.parse(json_data);
-
-        temp = temp + "<div class='media'><div class='media-body' style='background-color: lightgrey' >"
-        +"<h5 class='media-heading'>"+json_parser["_source"]["summary"]+"</h5>"
-        +(json_parser["_source"]["reviewerName"] || "Amazon Customer")
-        +"</div></div><hr>";
-    }
-    $(".modal-body #reviewLayout").append(temp);
+    let words = new Set();
+    data.hits.hits.forEach(row => {
+        let source = row['_source'];
+        source['summary'].removeStopWords().split(" ").forEach(word => words.add(word));
+    });
+    createWordCloud('#wordCloud', Array.from(words).map(word => {return {word: word}}));
 }
